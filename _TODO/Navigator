@@ -1,24 +1,28 @@
-bloomFilter
-架构github
-资源局部性原理
+Where am I?
+    Deep In technical
 
 
-TODO:
+Navigator
+    阿里中间件博客
+
+
+问题汇总:
+    bloomFilter
+    架构github
+    资源局部性原理
     日志回放技术
     长轮询pull是什么鬼？
     https://www.2cto.com/kf/201802/723267.html
     Long Polling长轮询
     https://www.jianshu.com/p/d3f66b1eb748?from=timeline&isappinstalled=0
     脏页是什么
-
-
-
-    分布式join技术
     分布式环境下的聚合函数支持
-    异构索引
-    小表广播
-
-
-
-
     容量计算的有效方式？
+
+
+
+
+
+
+
+
