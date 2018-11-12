@@ -5,3 +5,20 @@ bloomFilter
 
 TODO:
     日志回放技术
+    长轮询pull是什么鬼？
+    https://www.2cto.com/kf/201802/723267.html
+    Long Polling长轮询
+    https://www.jianshu.com/p/d3f66b1eb748?from=timeline&isappinstalled=0
+    脏页是什么
+
+
+
+    分布式join技术
+    分布式环境下的聚合函数支持
+    异构索引
+    小表广播
+
+
+
+
+    容量计算的有效方式？

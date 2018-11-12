@@ -100,16 +100,3 @@
 RocketMQ部署结构：
     NameServer+Broker（Master+Slave）
     数据与索引分离
-    
-
-
-
-
-
-TODO:
-    长轮询pull是什么鬼？
-    https://www.2cto.com/kf/201802/723267.html
-    Long Polling长轮询
-    https://www.jianshu.com/p/d3f66b1eb748?from=timeline&isappinstalled=0
-    
-    脏页
