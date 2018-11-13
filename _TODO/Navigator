@@ -1,27 +1,34 @@
 Where am I?
     Deep In technical
 
-
 Navigator
     阿里中间件博客
 
+TODO:
+bloomFilter
+架构github
+资源局部性原理
+日志回放技术 深度探究！
+长轮询pull是什么鬼？
+https://www.2cto.com/kf/201802/723267.html
+Long Polling长轮询
+https://www.jianshu.com/p/d3f66b1eb748?from=timeline&isappinstalled=0
+脏页是什么
+分布式环境下的聚合函数支持
+容量计算的有效方式？
+语法树
 
-问题汇总:
-    bloomFilter
-    架构github
-    资源局部性原理
-    日志回放技术
-    长轮询pull是什么鬼？
-    https://www.2cto.com/kf/201802/723267.html
-    Long Polling长轮询
-    https://www.jianshu.com/p/d3f66b1eb748?from=timeline&isappinstalled=0
-    脏页是什么
-    分布式环境下的聚合函数支持
-    容量计算的有效方式？
-
-
-
-
+mysql 最左优先原则
+https协议和http协议的区别
+hashmap数据结构
+默认加载因子是多少
+什么时候放入老年代
+什么时候full gc
+mysql乐观锁 悲观锁
+分布式锁setnx()
+redis缓存失效了怎么办？缓存穿透了怎么办
+http有哪些header
+消息幂等的实现方案
 
 
 
