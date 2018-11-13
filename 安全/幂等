@@ -3,7 +3,32 @@
     即，任意多次执行所产生的影响均与一次执行的影响相同。
 
 
-方案：
+实现一个幂等服务系统：
+    实现一个防重服务（Unique）
 
+    准备材料：
+        RPC通信框架+redis
 
+    思路：
+        利用redis的key过期进行防重判断。
+        首次调用isUnique必然返回true，也就是不重复。
+        二次调用，同样的key必然返回false，也就是重复调用了。此时可以在业务侧拦截请求，置为失败、返回错误或者直接拒绝服务。
 
+    提供API：
+        public boolean isUnique(java.lang.String key) throws Exception
+         判断交易是否重复。
+         如果交易重复，返回false;
+         如果交易不重复，保存key到redis集群中，key的ttl时间默认为1800秒(30分钟)
+         @param key 应用前缀
+         @return 如果交易重复，返回false; 如果交易不重复，返回true
+
+        public boolean isUnique(java.lang.String key, int seconds) throws Exception
+          判断交易是否重复。
+          如果交易重复，返回false;
+          如果交易不重复，保存key到redis集群中，key的ttl时长为seconds参数指定的值
+          @param key 应用前缀
+          @param seconds key在redis集群中的ttl时长，单位为秒。seconds值必须大于0。
+          @return 如果交易重复，返回false; 如果交易不重复，返回true
+
+        public void remove(java.lang.String key)  throws Exception
+          删除redis中的key。
