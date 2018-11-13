@@ -4,7 +4,7 @@
 
 
 实现一个幂等服务系统：
-    实现一个防重服务（Unique）
+    实现一个防重服务（Unique），用于提供给需要幂等校验的服务进行调用。
 
     准备材料：
         RPC通信框架+redis
@@ -32,3 +32,7 @@
 
         public void remove(java.lang.String key)  throws Exception
           删除redis中的key。
+
+
+总结：
+    幂等性是分布式领域的一把利刃，是一个简单却非常重要的解决方案。
