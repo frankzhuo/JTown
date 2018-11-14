@@ -19,8 +19,7 @@ https://www.jianshu.com/p/d3f66b1eb748?from=timeline&isappinstalled=0
 语法树
 mysql 最左优先原则
 https协议和http协议的区别
-hashmap数据结构
-默认加载因子是多少
+hashmap数据结构、默认加载因子load factor？
 什么时候放入老年代
 什么时候full gc
 mysql乐观锁 悲观锁
