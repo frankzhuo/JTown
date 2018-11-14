@@ -17,14 +17,14 @@
         二次调用，同样的key必然返回false，也就是重复调用了。此时可以在业务侧拦截请求，置为失败、返回错误或者直接拒绝服务。
 
     提供API：
-        public boolean isUnique(java.lang.String key) throws Exception
+        public boolean isUnique(java.lang.String key) throws UniqueException
          判断交易是否重复。
          如果交易重复，返回false;
          如果交易不重复，保存key到redis集群中，key的ttl时间默认为1800秒(30分钟)
          @param key 应用前缀
          @return 如果交易重复，返回false; 如果交易不重复，返回true
 
-        public boolean isUnique(java.lang.String key, int seconds) throws Exception
+        public boolean isUnique(java.lang.String key, int seconds) throws UniqueException
           判断交易是否重复。
           如果交易重复，返回false;
           如果交易不重复，保存key到redis集群中，key的ttl时长为seconds参数指定的值
@@ -32,9 +32,8 @@
           @param seconds key在redis集群中的ttl时长，单位为秒。seconds值必须大于0。
           @return 如果交易重复，返回false; 如果交易不重复，返回true
 
-        public void remove(java.lang.String key)  throws Exception
+        public void remove(java.lang.String key)  throws UniqueException
           删除redis中的key。
 
-
 总结：
-    幂等性是分布式领域的一把利刃，是一个简单却非常重要的解决方案。
+    幂等性是分布式领域的一把利刃，简单却有效。
