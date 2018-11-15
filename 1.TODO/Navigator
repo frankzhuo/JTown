@@ -13,21 +13,25 @@ bloomFilter
 https://www.2cto.com/kf/201802/723267.html
 Long Polling长轮询
 https://www.jianshu.com/p/d3f66b1eb748?from=timeline&isappinstalled=0
-脏页是什么
-分布式环境下的聚合函数支持
-容量计算的有效方式？
-语法树
 mysql 最左优先原则
 https协议和http协议的区别
+mysql乐观锁 悲观锁
+分布式锁
+redis缓存失效了怎么办？缓存穿透了怎么办
+http有哪些header
+语法树
+脏页是什么
+接口的安全性如何设计？
+https协议原理？
 hashmap数据结构、默认加载因子load factor？
 什么时候放入老年代
 什么时候full gc
-mysql乐观锁 悲观锁
-分布式锁setnx()
-redis缓存失效了怎么办？缓存穿透了怎么办
-http有哪些header
-消息幂等的实现方案
-
+堆结构
+redis的setnx()原理
+缓存失效了怎么办
+bloomFilter
+分布式环境下如何设计聚合函数支持？
+系统容量计算的有效方式？
 
 
 
