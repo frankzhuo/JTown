@@ -33,11 +33,43 @@ bloomFilter
 分布式环境下如何设计聚合函数支持？
 系统容量计算的有效方式？
 
-
 主备切换
 nginx
 redis
 haproxy
 
+jvm优化，源码，分布式开发，集群，负荷分散，高可用性，性能调优，数据库设计，分表分库，
+数据缓存（redis，memcached，mongodb这种），事务jta，大并发多线程，nio（netty，mina这种），
+异步io，http协议，soa，webservice，restful，j2ee标准，servlet，jsp，jms，
+消息队列中间件（kafuka这种），数据结构，算法，apache的开源软件，
+java的新特性，java的未来，各种场景的解决方案
 
+高级Java工程师的各种面试题
 
+tomcat的源代码
+
+简要介绍一下自己
+做了什么业务
+遇到过哪些问题
+解决过哪些印象深刻的问题
+
+你实现的redis的原理
+你实现的http服务器的原理
+
+jvm原理
+jvm内存是如何管理的
+jvm的内存结构图
+
+乐观锁悲观锁有何区别
+乐观锁的应用场景
+悲观锁的应用场景
+
+我遇到最变态的一个问题是，让手写一个对象序列化为二进制
+Zookeeper的jute序列化工具可以看一下，这个序列化比较简单
+
+突出自己的实际项目优势：AOP实现切片事务管理、HTTP协议解析等等
+
+接口设计的原则：开闭原则
+
+hashmap原理
+中间件开发
