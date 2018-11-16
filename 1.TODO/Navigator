@@ -34,4 +34,10 @@ bloomFilter
 系统容量计算的有效方式？
 
 
+主备切换
+nginx
+redis
+haproxy
+
+
 

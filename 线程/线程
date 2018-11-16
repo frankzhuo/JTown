@@ -1,0 +1,21 @@
+wait()
+    调用某个对象的wait()方法能让当前线程阻塞，当前线程获得此对象的monitor（即锁）
+
+notify()
+    调用某个对象的notify()方法能够唤醒一个正在等待这个对象的monitor的线程，如果有多个线程都在等待这个对象的monitor，则只能（随机）唤醒其中一个线程
+
+notifyAll()
+    唤醒所有正在等待这个对象的monitor的线程
+
+==================================================================================================
+Condition.await()
+    对应Object的wait()
+
+Condition.signal()
+    对应Object的notify()
+
+Condition.signalAll()
+    对应Object的notifyAll()
+
+
+    
