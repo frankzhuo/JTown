@@ -1,0 +1,200 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 数据库的隔离级别：
+
+1）Serializable (串行化)：可避免脏读、不可重复读、幻读的发生。2）Repeatable read (可重复读)：可避免脏读、不可重复读的发生。3）Read committed (读已提交)：可避免脏读的发生。4）Read uncommitted (读未提交)：最低级别，任何情况都无法保证。
+
+set集合从原理上如何保证不重复
+
+1）在往set中添加元素时，如果指定元素不存在，则添加成功。也就是说，如果set中不存在(e==null ? e1==null : e.queals(e1))的元素e1,则e1能添加到set中。
+
+2）具体来讲：当向HashSet中添加元素的时候，首先计算元素的hashcode值，然后用这个（元素的hashcode）%（HashMap集合的大小）+1计算出这个元素的存储位置，如果这个位置位空，就将元素添加进去；如果不为空，则用equals方法比较元素是否相等，相等就不添加，否则找一个空位添加。
+
+HashMap和HashTable的主要区别是什么？，两者底层实现的数据结构是什么？
+HashMap和HashTable的区别：
+
+二者都实现了Map 接口，是将惟一键映射到特定的值上；主要区别在于：
+
+1)HashMap 没有排序，允许一个null 键和多个null 值,而Hashtable 不允许；
+
+2)HashMap 把Hashtable 的contains 方法去掉了，改成containsvalue 和
+
+containsKey,因为contains 方法容易让人引起误解；
+
+3)Hashtable 继承自Dictionary 类，HashMap 是Java1.2 引进的Map 接口的实现；
+
+4)Hashtable 的方法是Synchronize 的，而HashMap 不是，在多个线程访问Hashtable 时，不需要自己为它的方法实现同步，而HashMap 就必须为之提供外同步。Hashtable 和HashMap 采用的hash/rehash 算法大致一样，所以性能不会有很大的差异。
+
+HashMap和HashTable的底层实现数据结构：
+
+HashMap和Hashtable的底层实现都是数组+链表结构实现的
+
+HashMap何时扩容，扩容的算法是什么？
+HashMap何时扩容：
+
+当向容器添加元素的时候，会判断当前容器的元素个数，如果大于等于阈值---即当前数组的长度乘以加载因子的值的时候，就要自动扩容
+
+扩容的算法是什么：
+
+扩容(resize)就是重新计算容量，向HashMap对象里不停的添加元素，而HashMap对象内部的数组无法装载更多的元素时，对象就需要扩大数组的长度，以便能装入更多的元素。当然Java里的数组是无法自动扩容的，方法是使用一个新的数组代替已有的容量小的数组
+
+Java的虚拟机JVM的两个内存：栈内存和堆内存的区别是什么？
+Java把内存划分成两种：一种是栈内存，一种是堆内存。两者的区别是：
+
+1）栈内存：在函数中定义的一些基本类型的变量和对象的引用变量都在函数的栈内存中分配。 当在一段代码块定义一个变量时，Java就在栈中为这个变量分配内存空间，当超过变量的作用域后，Java会自动释放掉为该变量所分配的内存空间，该内存空间可以立即被另作他用。
+
+2）堆内存：堆内存用来存放由new创建的对象和数组。在堆中分配的内存，由Java虚拟机的自动垃圾回收器来管理。
+
+Java中对异常是如何进行分类的？
+异常整体分类：
+
+1）Java异常结构中定义有Throwable类。 Exception和Error为其子类。
+
+2）其中Exception表示由于网络故障、文件损坏、设备错误、用户输入非法情况导致的异常；
+
+3）而Error标识Java运行时环境出现的错误，例如：JVM内存耗尽。
+
+数据库设计中常讲的三范式是指什么？
+1）第一范式1NF(域的原子性)
+
+如果数据库表中的所有字段值都是不可分解的原子值，就说明该数据库表满足了第一范式
+
+2）第二范式2NF(表中除主键外的字段都完全依赖主键)
+
+第二范式是在第一范式基础上建立的。第二范式有两个重点:(1)表中必须有主键；(2)其他非主属性必须完全依赖主键，不能只依赖主键的一部分（主要针对联合主键而言）。
+
+3）第三范式3NF（表中除主键外的字段都完全直接依赖，不能是传递依赖）
+
+不能是传递依赖，即不能存在：非主键列 A 依赖于非主键列 B，非主键列 B 依赖于主键的情况。第二范式和第三范式区分的关键点：2NF：非主键列是否完全依赖于主键，还是依赖于主键的一部分；3NF：非主键列是直接依赖于主键，还是直接依赖于非主键列。
+
+Java中的线程池共有几种？
+Java四种线程池
+
+第一种：newCachedThreadPool
+
+　　创建一个可根据需要创建新线程的线程池，但是在以前构造的线程可用时将重用它们。
+
+第二种：newFixedThreadPool
+
+　　创建一个指定工作线程数量的线程池
+
+第三种：newScheduledThreadPool
+
+创建一个线程池，它可安排在给定延迟后运行命令或者定期地执行。
+
+第四种：newSingleThreadExecutor
+
+　　创建一个使用单个 worker 线程的 Executor，以无界队列方式来运行该线程。
+
+volatile和synchronized区别
+
+volatile和synchronized简介：
+
+在Java中,为了保证多线程读写数据时保证数据的一致性,可以采用两种方式：
+
+　 1）使用synchronized关键字
+
+　 2）使用volatile关键字：用一句话概括volatile,它能够使变量在值发生改变时能尽快地让其他线程知道。
+
+两者的区别：
+
+1）volatile本质是在告诉jvm当前变量在寄存器中的值是不确定的,需要从主存中读取,synchronized则是锁定当前变量,只有当前线程可以访问该变量,其他线程被阻塞住.
+
+2）volatile仅能使用在变量级别,synchronized则可以使用在变量,方法.
+
+3）volatile仅能实现变量的修改可见性,而synchronized则可以保证变量的修改可见性和原子性.
+
+4）volatile不会造成线程的阻塞,而synchronized可能会造成线程的阻塞.
+
+Spring的特性
+
+1.方便解耦，简化开发
+
+通过Spring提供的IoC容器，我们可以将对象之间的依赖关系交由Spring进行控制，避免硬编码所造成的过度程序耦合。
+
+2.AOP编程的支持
+
+通过Spring提供的AOP功能，方便进行面向切面的编程。
+
+3.声明事物的支持
+
+在Spring中，我们可以从单调烦闷的事务管理代码中解脱出来，通过声明式方式灵活地进行事务的管理，提高开发效率和质量。
+
+4.方便程序的测试
+
+可以用非容器依赖的编程方式进行几乎所有的测试工作。例如：Spring对Junit4支持，可以通过注解方便的测试Spring程序。
+
+5.方便集成各种优秀框架
+
+Spring不排斥各种优秀的开源框架，相反，Spring可以降低各种框架的使用难度，Spring提供了对各种优秀框架（如Struts,Hibernate、Hessian、Quartz）等的直接支持。
+
+6.降低Java EE API的使用难度
+
+Spring对很多难用的Java EE API（如JDBC，JavaMail，远程调用等）提供了一个薄薄的封装层，通过Spring的简易封装，这些Java EE API的使用难度大为降低。
+
+spring aop的应用场景：
+
+AOP用来封装横切关注点，具体可以在下面的场景中使用
+
+Authentication 权限
+
+Caching 缓存
+
+Context passing 内容传递
+
+Error handling 错误处理
+
+Lazy loading 懒加载
+
+Debugging 调试
+
+logging, tracing, profiling and monitoring 记录跟踪 优化 校准
+
+Performance optimization 性能优化
+
+Persistence 持久化
+
+Resource pooling 资源池
+
+Synchronization 同步
+
+Transactions 事务
+
+Mybaits中#和$区别
+
+1）${}是Properties文件中的变量占位符，它可以用于标签属性值和sql内部，属于静态文本替换，比如${driver}会被静态替换为com.mysql.jdbc.Driver。
+
+2）#{}是sql的参数占位符，Mybatis会将sql中的#{}替换为?号，在sql执行前会使用PreparedStatement的参数设置方法，按序给sql的?号占位符设置参数值，比如ps.setInt(0, parameterValue)，#{item.name}的取值方式为使用反射从参数对象中获取item对象的name属性值，相当于param.getItem().getName()。
+
+排序都有哪几种方法？请列举。用JAVA 实现一个快速排序。
+
+排序的方法有：
+
+插入排序（直接插入排序、希尔排序），交换排序（冒泡排序、快速排序），选择排序（直接选择排序、堆排序），归并排序，分配排序（箱排序、基数排序）；
+
+快速排序的伪代码：
+
+//使用快速排序方法对a[ 0 :n- 1 ]排序
+
+从a[ 0 :n- 1 ]中选择一个元素作为middle，该元素为支点；
+
+把余下的元素分割为两段left 和right，使得left 中的元素都小于等于支点，
+
+而right 中的元素都大于等于支点；
+
+递归地使用快速排序方法对left 进行排序；
+
+递归地使用快速排序方法对right 进行排序；
+
+所得结果为left + middle + right。
