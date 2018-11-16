@@ -1,0 +1,13 @@
+Spring的特性
+    1.方便解耦，简化开发
+        通过Spring提供的IoC容器，我们可以将对象之间的依赖关系交由Spring进行控制，避免硬编码所造成的过度程序耦合。
+    2.AOP编程的支持
+        通过Spring提供的AOP功能，方便进行面向切面的编程。
+    3.声明事物的支持
+        在Spring中，我们可以从单调烦闷的事务管理代码中解脱出来，通过声明式方式灵活地进行事务的管理，提高开发效率和质量。
+    4.方便程序的测试
+        可以用非容器依赖的编程方式进行几乎所有的测试工作。例如：Spring对Junit4支持，可以通过注解方便的测试Spring程序。
+    5.方便集成各种优秀框架
+        Spring不排斥各种优秀的开源框架，相反，Spring可以降低各种框架的使用难度，Spring提供了对各种优秀框架（如Struts,Hibernate、Hessian、Quartz）等的直接支持。
+    6.降低Java EE API的使用难度
+        Spring对很多难用的Java EE API（如JDBC，JavaMail，远程调用等）提供了一个薄薄的封装层，通过Spring的简易封装，这些Java EE API的使用难度大为降低。

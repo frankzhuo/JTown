@@ -1,0 +1,5 @@
+异常整体分类：
+    1）Java异常结构中定义有Throwable类。
+        Exception和Error为Throwable的子类。
+    2）其中Exception表示由于网络故障、文件损坏、设备错误、用户输入非法情况导致的异常。
+    3）而Error标识Java运行时环境出现的错误，例如：JVM内存耗尽。
