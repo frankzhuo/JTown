@@ -1,12 +1,59 @@
 ReentrantLock 配合 Condition 使用
-    配合关键字synchronized使用的方法如：await()、notify()、notifyAll()，同样配合ReentrantLock 使用的Condition提供了以下方法：
+    配合关键字synchronized使用的方法如：wait()、notify()、notifyAll()，同样配合ReentrantLock 使用的Condition提供了以下方法：
 
         public interface Condition {
-            void await() throws InterruptedException; // 类似于Object.wait()
-            void awaitUninterruptibly(); // 与await()相同，但不会再等待过程中响应中断
+            void await() throws InterruptedException;                               // 类似于Object.wait()
+            void awaitUninterruptibly();                                            // 与await()相同，但不会再等待过程中响应中断
             long awaitNanos(long nanosTimeout) throws InterruptedException;
             boolean await(long time, TimeUnit unit) throws InterruptedException;
             boolean awaitUntil(Date deadline) throws InterruptedException;
-            void signal(); // 类似于Obejct.notify()
-            void signalAll();
+            void signal();                                                          // 类似于Object.notify()
+            void signalAll();                                                       // 类似于Object.notifyAll()
+        }
+
+
+    ReentrantLock 实现了Lock接口，可以通过该接口提供的newCondition()方法创建Condition对象：
+        public interface Lock {
+            void lock();
+            void lockInterruptibly() throws InterruptedException;
+            boolean tryLock();
+            boolean tryLock(long time, TimeUnit unit) throws InterruptedException;
+            void unlock();
+            Condition newCondition();
+        }
+
+    代码示例：
+
+        import java.util.concurrent.locks.Condition;
+        import java.util.concurrent.locks.ReentrantLock;
+
+        public class ReentrantLockWithConditon implements Runnable{
+            public static ReentrantLock lock = new ReentrantLock(true);
+            public static Condition condition = lock.newCondition();
+
+            @Override
+            public void run() {
+                lock.newCondition();
+                try {
+                    lock.lock();
+                    System.err.println(Thread.currentThread().getName() + "-线程开始等待...");
+                    condition.await();
+                    System.err.println(Thread.currentThread().getName() + "-线程继续进行了");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    lock.unlock();
+                }
+            }
+
+            public static void main(String[] args) throws InterruptedException {
+                ReentrantLockWithConditon test = new ReentrantLockWithConditon();
+                Thread t = new Thread(test, "线程ABC");
+                t.start();
+                Thread.sleep(1000);
+                System.err.println("过了1秒后...");
+                lock.lock();
+                condition.signal(); // 调用该方法前需要获取到创建该对象的锁否则会产生java.lang.IllegalMonitorStateException异常
+                lock.unlock();
+            }
         }
