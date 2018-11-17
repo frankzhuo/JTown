@@ -1,0 +1,12 @@
+ReentrantLock 配合 Condition 使用
+    配合关键字synchronized使用的方法如：await()、notify()、notifyAll()，同样配合ReentrantLock 使用的Condition提供了以下方法：
+
+        public interface Condition {
+            void await() throws InterruptedException; // 类似于Object.wait()
+            void awaitUninterruptibly(); // 与await()相同，但不会再等待过程中响应中断
+            long awaitNanos(long nanosTimeout) throws InterruptedException;
+            boolean await(long time, TimeUnit unit) throws InterruptedException;
+            boolean awaitUntil(Date deadline) throws InterruptedException;
+            void signal(); // 类似于Obejct.notify()
+            void signalAll();
+        }
