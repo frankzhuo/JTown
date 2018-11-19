@@ -1,0 +1,16 @@
+CGLIB和Java动态代理的区别：
+    Java动态代理只能够对接口进行代理，不能对普通的类进行代理；
+    CGLIB能够代理普通类。
+
+    Java动态代理使用Java原生的反射API进行操作，在生成类上比较高效；
+    CGLIB使用ASM框架直接对字节码进行操作，生成类比较费时，但类的执行过程很高效。
+
+    CGLib创建的动态代理对象性能比JDK创建的动态代理对象的性能高不少，但是CGLib在创建代理对象时所花费的时间却比JDK多得多。
+    所以对于单例的对象，因为无需频繁创建对象，用CGLib合适；
+    反之，使用JDK方式要更为合适一些。
+    同时，由于CGLib由于是采用动态创建子类的方法，对于final方法，无法进行代理。
+
+JDK动态代理生成的代理类有以下特点:
+　　1.继承自 java.lang.reflect.Proxy，实现了Rechargable,Vehicle这两个ElectricCar实现的接口；
+　　2.类中的所有方法都是final 的；
+　　3.所有的方法功能的实现都统一调用了InvocationHandler的invoke()方法。
