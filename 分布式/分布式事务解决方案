@@ -39,7 +39,6 @@
         买家在电商平台下单，往往会涉及到两个动作，一个是扣库存，第二个是更新订单状态，库存和订单一般属于不同的数据库，需要使用分布式事务保证数据一致性。
 
 常见的分布式事务解决方案：
-
     基于XA协议的两阶段提交
         XA是一个分布式事务协议，由Tuxedo提出。
         XA中大致分为两部分：
@@ -119,6 +118,29 @@
         优点： 跟2PC比起来，实现以及流程相对简单了一些，但数据的一致性比2PC也要差一些
         缺点： 缺点还是比较明显的，在2,3步中都有可能失败。TCC属于应用层的一种补偿方式，所以需要程序员在实现的时候多写很多补偿的代码，在一些场景中，一些业务流程可能用TCC不太好定义及处理。
 
+    Sagas 事务模型
+        Saga事务模型又叫做长时间运行的事务（Long-running-transaction）, 它是由普林斯顿大学的H.Garcia-Molina等人提出，它描述的是另外一种在没有两阶段提交的的情况下解决分布式系统中复杂的业务事务问题。
+        我们这里说的是一种基于 Sagas 机制的工作流事务模型，这个模型的相关理论目前来说还是比较新的，以至于百度上几乎没有什么相关资料。
+        该模型其核心思想就是拆分分布式系统中的长事务为多个短事务，或者叫多个本地事务，然后由 Sagas 工作流引擎负责协调，如果整个流程正常结束，那么就算是业务成功完成，如果在这过程中实现失败，那么Sagas工作流引擎就会以相反的顺序调用补偿操作，重新进行业务回滚。
+        比如我们一次关于购买旅游套餐业务操作涉及到三个操作，他们分别是预定车辆，预定宾馆，预定机票，他们分别属于三个不同的远程接口。可能从我们程序的角度来说他们不属于一个事务，但是从业务角度来说是属于同一个事务的。
+        他们的执行顺序如上图所示，所以当发生失败时，会依次进行取消的补偿操作。
+        因为长事务被拆分了很多个业务流，所以 Sagas 事务模型最重要的一个部件就是工作流或者你也可以叫流程管理器（Process Manager），工作流引擎和Process Manager虽然不是同一个东西，但是在这里，他们的职责是相同的。在选择工作流引擎之后，最终的代码也许看起来是这样的
+
+            SagaBuilder saga = SagaBuilder.newSaga("trip")
+                    .activity("Reserve car", ReserveCarAdapter.class) 
+                    .compensationActivity("Cancel car", CancelCarAdapter.class) 
+                    .activity("Book hotel", BookHotelAdapter.class) 
+                    .compensationActivity("Cancel hotel", CancelHotelAdapter.class) 
+                    .activity("Book flight", BookFlightAdapter.class) 
+                    .compensationActivity("Cancel flight", CancelFlightAdapter.class) 
+                    .end()
+                    .triggerCompensationOnAnyError();
+
+            camunda.getRepositoryService().createDeployment() 
+                    .addModelInstance(saga.getModel()) 
+                    .deploy();
+
+        优缺点这里我们就不说了，因为这个理论比较新，目前市面上还没有什么解决方案，即使是 Java 领域，我也没有搜索的太多有用的信息。
 
 总结
     分布式事务，本质上是对多个数据库的事务进行统一控制，按照控制力度可以分为：不控制、部分控制和完全控制。
