@@ -14,3 +14,5 @@ JDK动态代理生成的代理类有以下特点:
 　　1.继承自 java.lang.reflect.Proxy，实现了Rechargable,Vehicle这两个ElectricCar实现的接口；
 　　2.类中的所有方法都是final 的；
 　　3.所有的方法功能的实现都统一调用了InvocationHandler的invoke()方法。
+
+
