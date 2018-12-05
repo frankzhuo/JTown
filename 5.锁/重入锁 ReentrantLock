@@ -23,7 +23,6 @@ ReentrantLock 配合 Condition 使用
         }
 
     代码示例：
-
         import java.util.concurrent.locks.Condition;
         import java.util.concurrent.locks.ReentrantLock;
 
