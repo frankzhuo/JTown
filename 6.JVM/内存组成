@@ -3,12 +3,11 @@
         运行时数据区域，所有类实例和数组的内存均从此处分配。
         Java虚拟机启动时创建。
         对象的堆内存由称为垃圾回收器的自动内存管理系统回收。
-            Young Generation（Eden + From Space + To Space）
+            Young Generation（Eden + From Space + To Space）  8:1:1
                 Eden 存放新生的对象
                 Survivor Space 两个 存放每次垃圾回收后存活的对象
             Old Generation（Tenured Generation 即图中的Old Space） 
                 主要存放应用程序中生命周期长的存活对象
-
 
     非堆内存
         JVM具有一个由所有线程共享的方法区。
@@ -20,3 +19,4 @@
             Permanent Generation 
                 存放JVM自己的反射对象，比如类对象和方法对象
             native heap
+                
