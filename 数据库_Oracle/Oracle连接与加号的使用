@@ -1,0 +1,7 @@
++ 表示补充，即哪个表有加号，这个表就是匹配表（left join xxx）。
+所以加号写在右表，左表就是全部显示，故是左连接。
+
+左连接的例子：
+    select a.*,b.bname 
+    from student_drb a, class_drb b 
+    where a.bno=b.bno(+)

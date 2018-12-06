@@ -1,0 +1,74 @@
+RSA 与 DSA 都是非对称加密算法。
+
+其中RSA的安全性是基于极其困难的大整数的分解（两个素数的乘积）；
+DSA 的安全性是基于整数有限域离散对数难题。
+基本上可以认为相同密钥长度的 RSA 算法与 DSA 算法安全性相当。
+
+openssl RSA 加解密
+openssl DSA 签名与验证
+
+
+生成RSA类型证书：
+    工具：
+        openssl-0.9.8i-win32
+            - openssl.exe
+
+    生成私钥文件(.key文件)：
+        genrsa -out rsa-private.key -des3 2048
+            说明：
+            rsa-private.key：私钥文件名
+            -des3：私钥加密方式
+            2048：秘钥长度2048bit
+
+    生成公钥证书(.cer文件)：
+        req -new -x509 -key rsa-private.key -days 720 -out rsa-public.cer
+            过程中需要输入：国家简写、省份简写、城市简写、公司、部门、姓名、邮箱地址
+            说明：
+            -new：生成一个新的证书
+            -x509：自签名证书
+            rsa-private.key：私钥文件
+            -days 720：有效期720天（两年）
+            rsa-public.cer：公钥证书文件
+    
+    导出私钥证书(.pfx文件)：
+        pkcs12 -export -name test-alias -inkey rsa-private.key -in rsa-public.cer -out test-rsa.pfx
+            过程中需要输入：私钥密码、私钥证书密码（还要确认一遍）
+            说明：
+            test-alias：别名，配置加密策略时会用到
+            rsa-private.key：私钥文件
+            rsa-public.cer：公钥证书文件
+            test-rsa.pfx：私钥证书文件
+
+生成DSA类型证书：
+    生成秘钥证书(.pem文件)
+        dsaparam -out dsa-param.pem 2048
+        说明：
+        dsa-param.pem：秘钥参数文件
+        2048：秘钥长度2048bit
+
+    生成私钥文件(.pem文件)
+        gendsa -out dsa-private.pem -des3 dsa-param.pem
+            过程中需要输入：私钥证书密码（还要确认一遍）
+            说明：
+            dsa-private.pem：私钥证书文件
+            -des3：des3加密方式
+            dsa-param.pem：秘钥参数文件
+
+    生成公钥证书(.cer文件)：
+        req -new -x509 -key dsa-private.pem -days 720 -out dsa-public.cer
+            过程中需要输入：私钥密码、国家简写、省份简写、城市简写、公司、部门、姓名、邮箱地址
+            说明：
+            -new：生成一个新的证书
+            -x509：自签名证书
+            dsa-private.pem：私钥文件
+            -days 720：有效期720天
+            dsa-public.cer：公钥证书文件
+
+    导出私钥证书(.pfx文件)：
+        pkcs12 -export -name test-alias -inkey dsa-private.pem -in dsa-public.cer -out test-dsa.pfx
+            过程中需要输入：私钥密码、私钥证书密码（还要确认一遍）
+            说明：
+            test-alias：别名，配置加密策略时会用到
+            dsa-private.pem：私钥文件
+            dsa-public.cer：公钥证书文件
+            test-dsa.pfx：私钥证书文件
