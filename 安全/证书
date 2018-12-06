@@ -1,0 +1,57 @@
+常用的证书格式转换
+    从pfx格式的证书提取出密钥和证书
+        set OPENSSL_CONF=openssl.cnf
+        openssl pkcs12 -in my.pfx -nodes -out server.pem
+        openssl rsa -in server.pem -out server.key 
+        openssl x509 -in server.pem -out server.crt
+
+    PEM格式的证书与DER格式的证书的转换
+        openssl x509 -in cert.pem -inform PEM -out cert.der -outform DER 
+        openssl x509 -in ca.cer -inform DER -out ca.pem -outform  PEM
+
+几种典型的密码交换信息文件格式:
+    DER-encoded certificate: 
+        .cer, .crt
+    PEM-encoded message: 
+        .pem
+    PKCS#12 Personal Information Exchange:
+        .pfx, .p12
+    PKCS#10 Certification Request: 
+        .p10
+    PKCS#7 cert request response: 
+        .p7r
+    PKCS#7 binary message: 
+        .p7b
+
+
+.cer/.crt是用于存放证书，它是2进制形式存放的，不含私钥。
+.pem跟crt/cer的区别是它以ASCII来表示。
+pfx/p12用于存放个人证书/私钥，他通常包含保护密码，2进制方式
+p10是证书请求
+p7r是CA对证书请求的回复，只用于导入
+p7b以树状展示证书链(certificate chain)，同时也支持单个证书，不含私钥
+
+
+openssl x509部分命令
+    打印出证书的内容： 
+    openssl x509 -in cert.pem -noout -text 
+    打印出证书的系列号 
+    openssl x509 -in cert.pem -noout -serial 
+    打印出证书的拥有者名字 
+    openssl x509 -in cert.pem -noout -subject 
+    以RFC2253规定的格式打印出证书的拥有者名字 
+    openssl x509 -in cert.pem -noout -subject -nameopt RFC2253 
+    在支持UTF8的终端一行过打印出证书的拥有者名字 
+    openssl x509 -in cert.pem -noout -subject -nameopt oneline -nameopt -escmsb 
+    打印出证书的MD5特征参数 
+    openssl x509 -in cert.pem -noout -fingerprint 
+    打印出证书的SHA特征参数 
+    openssl x509 -sha1 -in cert.pem -noout -fingerprint 
+    把PEM格式的证书转化成DER格式 
+    openssl x509 -in cert.pem -inform PEM -out cert.der -outform DER 
+    把一个证书转化成CSR 
+    openssl x509 -x509toreq -in cert.pem -out req.pem -signkey key.pem 
+    给一个CSR进行处理，颁发字签名证书，增加CA扩展项 
+    openssl x509 -req -in careq.pem -extfile openssl.cnf -extensions v3_ca -signkey key.pem -out cacert.pem 
+    给一个CSR签名，增加用户证书扩展项 
+    openssl x509 -req -in req.pem -extfile openssl.cnf -extensions v3_usr -CA cacert.pem -CAkey key.pem -CAcreateserial 
