@@ -10,10 +10,7 @@ ROWNUM是对结果集加的一个伪列
     1. 若现有结果集只有1条，那么该伪列rownum=1
     2. rownum >10 之所以没有记录，是因为第一条不满足去掉的话，第二条的ROWNUM又成了1，所以永远没有满足条件的记录。
     3. select rownum,c1 from t1 where rownum != 10 总是返回前9条数据
-    4. rownum >1 时查不到一条记录，而 rownum >0 或 rownum >=1 却总显示所以的记录
+    4. rownum >1 时查不到一条记录，而 rownum >0 或 rownum >=1 却总显示所有的记录
     5. between 1 and 10 或者 between 0 and 10 能查到结果，而用 between 2 and 10 却得不到结果
             任何时候想把 rownum = 1 这条记录抛弃是不对的，它在结果集中是不可或缺的，少了rownum=1 就像空中楼阁一般不能存在，所以你的 rownum 条件要包含到 1
-
-
-
 
